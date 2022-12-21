@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import data from '../../assets/cities-list.json';
 
 interface City {
-  value: string;
-  viewValue: string;
+  name: string;
+  population: number,
 }
 
 @Component({
@@ -10,13 +11,21 @@ interface City {
   templateUrl: './select-city.component.html',
   styleUrls: ['./select-city.component.scss']
 })
-export class SelectCityComponent {
+export class SelectCityComponent implements OnInit{
+
   selectedCityValue!: string;
 
-  cities: City[] = [
-    {value: 'istanbul', viewValue: 'İstanbul'},
-    {value: 'izmir', viewValue: 'İzmir'},
-    {value: 'ankara', viewValue: 'Ankara'},
-  ];
+  cities: City[] = data;
+
+  @Output() selectedCityChanged = new EventEmitter<string>();
+
+  ngOnInit(): void {
+
+  }
+
+  handleSelectedCityChange(){
+    this.selectedCityChanged.emit(this.selectedCityValue);
+  }
+
 
 }

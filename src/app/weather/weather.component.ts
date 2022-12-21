@@ -1,4 +1,3 @@
-import { getLocaleDayNames } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WeatherService } from '../weather.service';
 
@@ -27,11 +26,11 @@ export class WeatherComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updateData();
+
   }
 
-  updateData() {
-    this.weatherService.getWeather("izmir").subscribe((data: any)=> {
+  updateData(cityName : string) {
+    this.weatherService.getWeather(cityName).subscribe((data: any)=> {
       console.log(data)
       this.condition = data.current.condition.text
       this.location = data.location.name

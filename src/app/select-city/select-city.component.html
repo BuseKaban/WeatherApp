@@ -1,9 +1,9 @@
 <form>
   <mat-form-field appearance="fill">
     <mat-label>Selected City</mat-label>
-    <mat-select [(ngModel)]="selectedCityValue" name="city">
-      <mat-option *ngFor="let city of cities" [value]="city.value">
-        {{city.viewValue}}
+    <mat-select [(ngModel)]="selectedCityValue" (ngModelChange)="handleSelectedCityChange()" name="city">
+      <mat-option *ngFor="let city of cities" [value]="city.name">
+        {{city.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>

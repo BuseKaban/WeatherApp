@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { tap } from 'rxjs';
+import { of } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,16 +24,34 @@ const httpOptions = {
 
 }
 
+interface WeatherData {
+  cityName: string;
+  weatherData: any;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class WeatherService {
+
+  cityWeatherList: WeatherData[] = [];
+
   getWeather(city:string) {
-    return this.http
-      .get(
-        `http://api.weatherapi.com/v1/current.json?key=10ef8d60b2f7432e9e0124220222012&q=${city}&aqi=no`,
-        httpOptions
-      );
+    let foundCity = this.cityWeatherList.find((sehir)=> sehir.cityName == city);
+
+    if(foundCity == null)
+    {
+      return this.http
+        .get(`http://api.weatherapi.com/v1/current.json?key=10ef8d60b2f7432e9e0124220222012&q=${city}&aqi=no`, httpOptions)
+        .pipe(
+          tap(data => {
+            console.log("Data fetched from api!")
+            this.cityWeatherList.push({ cityName: city, weatherData: data });
+          }
+        ));
+    }
+
+    return of(foundCity?.weatherData);
   }
+
   constructor(private http: HttpClient) {}
 }
