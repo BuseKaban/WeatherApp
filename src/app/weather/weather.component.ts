@@ -1,3 +1,4 @@
+import { getLocaleDayNames } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WeatherService } from '../weather.service';
 
@@ -14,25 +15,30 @@ export class WeatherComponent implements OnInit {
 
   date: Date = new Date();
   day: string = days[this.date.getDay()];
-  location: string = "İzmir";
+  location: string = "";
   countryCode: string = "TR";
-  temp: string = "18C";
-  condition: string = "Sunny"
-  precipitation :string = "12";
-  humidity :string = "30";
-  wind :string = "5";
+  temp: number = 0;
+  condition: string = ""
+  precipitation :number = 0;
+  humidity :number = 0;
+  wind :number = 0;
 
   constructor(private weatherService:WeatherService){
   }
 
   ngOnInit(): void {
+    this.updateData();
   }
 
   updateData() {
-    this.weatherService.getWeather().subscribe((data: any)=> {
+    this.weatherService.getWeather("izmir").subscribe((data: any)=> {
       console.log(data)
       this.condition = data.current.condition.text
-
+      this.location = data.location.name
+      this.temp = data.current.temp_c
+      this.precipitation = data.current.precip_mm
+      this.humidity = data.current.humidity
+      this.wind = data.current.wind_kph
     });
   }
 }

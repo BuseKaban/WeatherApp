@@ -1,0 +1,10 @@
+<form>
+  <mat-form-field appearance="fill">
+    <mat-label>Selected City</mat-label>
+    <mat-select [(ngModel)]="selectedCityValue" name="city">
+      <mat-option *ngFor="let city of cities" [value]="city.value">
+        {{city.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

@@ -27,10 +27,10 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class WeatherService {
-  getWeather() {
+  getWeather(city:string) {
     return this.http
       .get(
-        'http://api.weatherapi.com/v1/current.json?key=10ef8d60b2f7432e9e0124220222012&q=istanbul&aqi=no',
+        `http://api.weatherapi.com/v1/current.json?key=10ef8d60b2f7432e9e0124220222012&q=${city}&aqi=no`,
         httpOptions
       );
   }

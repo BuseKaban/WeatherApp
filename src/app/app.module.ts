@@ -7,18 +7,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WeatherComponent } from './weather/weather.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialExampleModule } from 'src/material.module';
+import { SelectCityComponent } from './select-city/select-city.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WeatherComponent
+    WeatherComponent,
+    SelectCityComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialExampleModule
+    MaterialExampleModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
